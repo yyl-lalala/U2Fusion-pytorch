@@ -21,31 +21,31 @@ The current repository supports quick testing with pretrained checkpoints.
 ### Results on TNO
 
 <p align="center">
-  <img src="results/MEFB/6.png" width="280" height="180">
+  <img src="results/vis-ir/TNO/5.png" width="280" height="180">
 </p>
 
 ### Results on RoadScene
 
 <p align="center">
-  <img src="results/MEFB/6.png" width="280" height="180">
+  <img src="results/vis-ir/RoadScene/4.jpg" width="280" height="180">
 </p>
 
 ### Results on Medical
 
 <p align="center">
-  <img src="results/MEFB/6.png" width="280" height="180">
+  <img src="results/medical/4.png" width="280" height="180">
 </p>
 
 ### Results on Multi-Exposure
 
 <p align="center">
-  <img src="results/MEFB/6.png" width="280" height="180">
+  <img src="results/multi-exposure/dataset2/3.png" width="280" height="180">
 </p>
 
 ### Results on Multi-Focus
 
 <p align="center">
-  <img src="results/MEFB/6.png" width="280" height="180">
+  <img src="results/multi-focus/1.jpg" width="280" height="180">
 </p>
 
 ---
@@ -53,11 +53,6 @@ The current repository supports quick testing with pretrained checkpoints.
 
 ```text
 Diff-MEF/
-├── data/                       # Hierarchical Data Format 5 
-├── checkpoints/                # Pretrained checkpoints           
-│   ├── task1/                  # Multi-Modal
-│   ├── task2/                  # Multi-Exposure
-│   └── task3/                  # Multi-Focus
 ├── test_imgs/
 │   ├── vis-ir/
 │       ├── TNO/
@@ -93,4 +88,19 @@ Diff-MEF/
 └── README.md
 ```
 ---
+## Tips:<br>
+Large files should be downloaded separately, including the following files: <br>
+#### For training:<br>
+* [Training dataset ,checkpoints and vgg16.npy]( https://pan.baidu.com/s/1E7j4lHKRR4SwjcOyiUdUxQ?pwd=ra1k)<br>
 
+## Citation
+If you find this work useful for your research, please cite our paper:
+```bibtex
+@article{xu2020u2fusion,
+  title={U2Fusion: A Unified Unsupervised Image Fusion Network},
+  author={Xu, Han and Ma, Jiayi and Jiang, Junjun and Guo, Xiaojie and Ling, Haibin},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2020},
+  publisher={IEEE}
+}
+```
