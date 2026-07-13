@@ -8,34 +8,34 @@ from model import FusionModel
 from ewc import EWC
 from dataset import H5Dataset
 
-# -------------------- 配置 --------------------
+# -------------------- Configuration --------------------
 BATCH_SIZE = 18
 PATCH_SIZE = 64
 LR = 0.0001
-EPOCHS = [3, 2, 2]           # 三个任务的轮数
-C_VALUES = [3200, 3500, 100] # 信息保留度常数
-LAM = 0                  # EWC 惩罚强度
-NUM_FISHER = 1000            # 每个任务用于估算 Fisher 的批次数（建议 ≥ 1000）
+EPOCHS = [3, 2, 2]
+C_VALUES = [3200, 3500, 100]
+LAM = 0                 #80000
+NUM_FISHER = 1000
 LOG_INTERVAL = 25
 SAVE_INTERVAL = 100
-VAL_SIZE = 2000              # 每个任务验证集样本数（论文固定值）
-SEED = 42                    # 划分验证集的随机种子，保证可复现
+VAL_SIZE = 2000
+SEED = 42
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print('Using device:', device)
 
-# -------------------- 数据路径 --------------------
+# -------------------- data path --------------------
 data1_path = './data/vis_ir_dataset64.h5'
 data2_path = './data/oe_ue_Y_dataset64.h5'
 data3_path = './data/far_near_Y_dataset64.h5'
 vgg_weights = 'vgg16.pth'
 
-# -------------------- 完整数据集 --------------------
+# -------------------- dataset--------------------
 full_set1 = H5Dataset(data1_path)
 full_set2 = H5Dataset(data2_path)
 full_set3 = H5Dataset(data3_path)
 
-# -------------------- 划分训练/验证集 --------------------
+# --------------------  --------------------
 def split_dataset(dataset, val_size=VAL_SIZE, seed=SEED):
     indices = list(range(len(dataset)))
     rng = np.random.RandomState(seed)
@@ -82,11 +82,11 @@ val_loader2 = DataLoader(val_set2, batch_size=BATCH_SIZE, shuffle=False,
 val_loader3 = DataLoader(val_set3, batch_size=BATCH_SIZE, shuffle=False,
                          collate_fn=collate_fixed_channels)
 
-# -------------------- 模型、优化器 --------------------
+# -------------------- --------------------
 model = FusionModel(vgg_weights_path=vgg_weights).to(device)
 optimizer = optim.RMSprop(model.parameters(), lr=LR, momentum=0.15, alpha=0.9)
 
-# -------------------- 工具函数 --------------------
+# --------------------  --------------------
 @torch.no_grad()
 def evaluate_loss(model, dataloader, c_value):
     model.eval()
@@ -134,7 +134,7 @@ def train_epoch(loader, model, optimizer, epoch, c_value,
             writer.add_scalar('loss/total', loss.item(), global_step)
             writer.add_scalar('loss/content', loss_content.item(), global_step)
 
-        # ---------- 定期评估旧任务验证损失（统一父标签，便于同图显示） ----------
+        # ----------  ----------
         if val_writer and val_loaders_for_eval and (batch_idx % LOG_INTERVAL == 0):
             for task_name, (val_loader, c_val) in val_loaders_for_eval.items():
                 val_loss = evaluate_loss(model, val_loader, c_val)
@@ -149,11 +149,11 @@ def train_epoch(loader, model, optimizer, epoch, c_value,
 def save_model(model, path):
     torch.save(model.state_dict(), path)
 
-# ==================== 统一验证记录器 ====================
+# ==================== ====================
 os.makedirs('logs', exist_ok=True)
 val_writer = SummaryWriter('logs/val_curves')
 
-# ★★★ 强制三条曲线叠加在同一张图表中 ★★★
+# ★★★
 val_writer.add_custom_scalars({
     "Validation Loss": {
         "All Tasks": ["Multiline", [
@@ -164,7 +164,7 @@ val_writer.add_custom_scalars({
     }
 })
 
-# ==================== 任务1：多模图像融合 ====================
+# ==================== Task 1 (Multi-modal) ====================
 print('===== Task 1 (Multi-modal) =====')
 os.makedirs('checkpoints/task1', exist_ok=True)
 writer_task1 = SummaryWriter('logs/task1')
@@ -185,11 +185,11 @@ for epoch in range(1, EPOCHS[0] + 1):
 save_model(model, 'checkpoints/task1/final.pth')
 writer_task1.close()
 
-# 过渡点：任务1结束后立即评估
+#
 loss_task1_after = evaluate_loss(model, val_loader1, C_VALUES[0])
 val_writer.add_scalar('val_loss/curves/task1', loss_task1_after, global_step)
 
-# 计算 Fisher + 创建 EWC
+#  Fisher +  EWC
 print('Computing Fisher for task1 data...')
 ewc1 = EWC(model, device)
 def fisher_loss_fn1(S1, S2):
@@ -199,7 +199,7 @@ ewc1.compute_fisher(train_loader1, fisher_loss_fn1, num_samples=NUM_FISHER)
 ewc1.update_star()
 ewc_list = [ewc1]
 
-# ==================== 任务2：多曝光图像融合 ====================
+# ==================== Task 2 (Multi-exposure) ====================
 print('===== Task 2 (Multi-exposure) =====')
 os.makedirs('checkpoints/task2', exist_ok=True)
 writer_task2 = SummaryWriter('logs/task2')
@@ -223,13 +223,13 @@ for epoch in range(1, EPOCHS[1] + 1):
 save_model(model, 'checkpoints/task2/final.pth')
 writer_task2.close()
 
-# 过渡点：任务2结束后立即评估
+#
 loss_task1_after2 = evaluate_loss(model, val_loader1, C_VALUES[0])
 loss_task2_after2 = evaluate_loss(model, val_loader2, C_VALUES[1])
 val_writer.add_scalar('val_loss/curves/task1', loss_task1_after2, global_step)
 val_writer.add_scalar('val_loss/curves/task2', loss_task2_after2, global_step)
 
-# 为任务2创建 EWC 保护对象
+#
 print('Computing Fisher for task2 data...')
 ewc2 = EWC(model, device)
 def fisher_loss_fn2(S1, S2):
@@ -239,7 +239,7 @@ ewc2.compute_fisher(train_loader2, fisher_loss_fn2, num_samples=NUM_FISHER)
 ewc2.update_star()
 ewc_list.append(ewc2)
 
-# ==================== 任务3：多聚焦图像融合 ====================
+# ==================== Task 3 (Multi-focus) ====================
 print('===== Task 3 (Multi-focus) =====')
 os.makedirs('checkpoints/task3', exist_ok=True)
 writer_task3 = SummaryWriter('logs/task3')
