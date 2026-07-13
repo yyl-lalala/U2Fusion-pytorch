@@ -11,7 +11,6 @@ def features_grad(features):
                            [1/8, -1, 1/8],
                            [1/8, 1/8, 1/8]]).float().to(features.device)
     kernel = kernel.view(1, 1, 3, 3)
-    # 对每个通道做卷积
     B, C, H, W = features.shape
     grad = F.conv2d(features.reshape(-1, 1, H, W), kernel, padding=1).view(B, C, H, W)
     return grad
@@ -37,7 +36,7 @@ class FusionModel(nn.Module):
         mse2 = fro_loss(fused, S2)
 
         if self.vgg is not None:
-            # 重采样到224x224并转换为3通道
+
             s1_3 = S1.expand(-1, 3, -1, -1)
             s2_3 = S2.expand(-1, 3, -1, -1)
             s1_224 = F.interpolate(s1_3, size=(224,224), mode='nearest')
@@ -57,7 +56,7 @@ class FusionModel(nn.Module):
             ws2 = torch.stack(ws2, dim=1).mean(dim=1) / c
             weights = torch.softmax(torch.stack([ws1, ws2], dim=1), dim=1)  # [B,2]
         else:
-            # 如果没有VGG，使用相等权重（退化情况）
+
             weights = torch.ones(S1.size(0), 2).to(S1.device) / 2
 
         w1, w2 = weights[:, 0], weights[:, 1]
