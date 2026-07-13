@@ -10,7 +10,7 @@ class EWC:
         self.star = {}
 
     def compute_fisher(self, dataloader, loss_fn, num_samples=200):
-        # loss_fn(S1, S2) 返回标量损失，不含EWC项
+        # loss_fn(S1, S2)
         for name in self.params:
             self.fisher[name] = torch.zeros_like(self.params[name], device=self.device)
         self.model.eval()
@@ -38,7 +38,7 @@ class EWC:
         loss = 0.0
         for name, p in self.params.items():
             if name in self.star and name in self.fisher:
-                # 将star权重也放在同一个device
+                #
                 star = self.star[name].to(self.device)
                 fisher = self.fisher[name].to(self.device)
                 loss += (fisher * (p - star) ** 2).sum()
