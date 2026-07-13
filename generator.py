@@ -16,7 +16,7 @@ class Encoder(nn.Module):
     def forward(self, x):
         # x: [B,2,H,W]
         out = self.leaky_relu(self.conv1(x))  # B,44,H,W
-        features = [out]  # 收集所有层输出
+        features = [out]
 
         # dense1
         out1 = self.leaky_relu(self.dense1(out))
