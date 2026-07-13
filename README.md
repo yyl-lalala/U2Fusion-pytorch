@@ -19,8 +19,17 @@ The current repository supports quick testing with pretrained checkpoints.
 ## Tips:<br>
 Large files should be downloaded separately, including the following files: <br>
 #### For training:<br>
-* [Training dataset ,checkpoints and vgg16.npy]( https://pan.baidu.com/s/1E7j4lHKRR4SwjcOyiUdUxQ?pwd=ra1k)<br>
+* [Training dataset and vgg16.npy]( https://pan.baidu.com/s/1E7j4lHKRR4SwjcOyiUdUxQ?pwd=ra1k)<br>
 ---
+## Environment and Inference
+The code was tested with the following main environment:
+```text
+Python == 3.10.20  PyTorch == 2.8.0 +cu126  TorchVision == 0.23.0 +cu126   
+```
+More detailed package versions are listed in requirements.txt
+
+---
+
 ## Visual Results
 
 ### Results on TNO
