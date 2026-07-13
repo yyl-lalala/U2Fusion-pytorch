@@ -77,29 +77,33 @@ More detailed package versions are listed in requirements.txt
 
 ```text
 U2Fusion-PyTorch/
+├── checkpoints/
+│   ├── task1/                   # Multi-Modal
+│   ├── task2/                   # Multi-Exposure
+│   └── task3/                   # Multi-Focus
 ├── test_imgs/
 │   ├── vis-ir/
 │       ├── TNO/
-│           ├──vir/             # Visible Images
-│           └──ir/              # Infrared Images
+│           ├── vir/             # Visible Images
+│           └── ir/              # Infrared Images
 │       └── RoadScene/
-│           ├──vir/             # Visible Images
-│           └──ir/              # Infrared Images
+│           ├── vir/             # Visible Images
+│           └── ir/              # Infrared Images
 │   ├── medical/
-│       ├──mri/                 # Magnetic Resonance Images
-│       └──pet/                 # Positron Emission Tomography Images
+│       ├── mri/                 # Magnetic Resonance Images
+│       └── pet/                 # Positron Emission Tomography Images
 │   ├── multi-exposure/                      
 │       ├── dataset1/
-│           ├──ue/              # Under-Exposed Images
-│           └──oe/              # Over-Exposed Images
+│           ├── ue/              # Under-Exposed Images
+│           └── oe/              # Over-Exposed Images
 │       └── dataset2/
-│           ├──ue/              # Under-Exposed Images
-│           └──oe/              # Over-Exposed Images
+│           ├── ue/              # Under-Exposed Images
+│           └── oe/              # Over-Exposed Images
 │   └── multi-focus/  
-│        ├──far/                # Far-Focused Images    
-│        └──near/               # Near-Focused Images
-├── img_RGB/                    # RGB Input
-├── results/                    # Inference results
+│        ├── far/                # Far-Focused Images    
+│        └── near/               # Near-Focused Images
+├── img_RGB/                     # RGB Input
+├── results/                     # Inference results
 ├── convert_vgg.py
 ├── vgg16.py  
 ├── dataset.py
@@ -108,7 +112,8 @@ U2Fusion-PyTorch/
 ├── model.py
 ├── train.py
 ├── test.py                     
-├── color.py                   # Its functon has been achieved in test
+├── color.py                     # Its functon has been achieved in test
+├── requirements.txt
 └── README.md
 ```
 ---
