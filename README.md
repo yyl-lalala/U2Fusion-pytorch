@@ -13,8 +13,10 @@
 ## Overview
 This study proposes a novel unified and unsupervised end-to-end image fusion network, termed as U2Fusion, 
 which is capable of solving different fusion problems, including multi-modal, multi-exposure, and multi-focus cases.
-
+Now, with the upadta to the code frameworl, I will provide the version migrated to PyTorch.
 The current repository supports quick testing with pretrained checkpoints.
+
+
 ---
 ## Visual Results
 
