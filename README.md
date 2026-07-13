@@ -1,6 +1,6 @@
 # U2Fusion-PyTorch
-**U2Fusion: A Unified Unsupervised Image Fusion Network（TAPMI 2022）**
-[![Paper](https://img.shields.io/badge/Paper-IEEE%20TAPMI-blue)](https://doi.org/10.1109/TPAMI.2020.3012548)
+**U2Fusion: A Unified Unsupervised Image Fusion Network（TPAMI 2022）**
+[![Paper](https://img.shields.io/badge/Paper-IEEE%20TPAMI-blue)](https://doi.org/10.1109/TPAMI.2020.3012548)
 [![DOI](https://img.shields.io/badge/DOI-10.1109%2FTPAMI.2020.3012548-red)](https://doi.org/10.1109/TPAMI.2020.3012548)
 [![GitHub](https://img.shields.io/badge/Code-GitHub-black)](https://github.com/hanna-xu/U2Fusion)
 ---
