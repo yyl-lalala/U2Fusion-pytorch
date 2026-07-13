@@ -26,9 +26,9 @@ def ssim_loss(img1, img2, window_size=11, sigma=1.5):
     sigma12 = F.conv2d(img1 * img2, window, padding=0) - mu12
 
     ssim_map = ((2 * mu12 + C1) * (2 * sigma12 + C2)) / ((mu1_sq + mu2_sq + C1) * (sigma1_sq + sigma2_sq + C2))
-    # 返回每个样本的SSIM值 [B]
+    #
     return ssim_map.mean(dim=[1, 2, 3])
 
 def fro_loss(img1, img2):
-    # 每个样本的MSE（除以像素数）
+    #
     return ((img1 - img2) ** 2).mean(dim=[1, 2, 3])
