@@ -17,4 +17,4 @@ def convert_vgg_npy_to_pth(npy_path, output_path):
     print('Saved to', output_path)
 
 if __name__ == '__main__':
-    convert_vgg_npy_to_pth('vgg16.npy', 'vgg16.pth')  # 放在项目根目录
+    convert_vgg_npy_to_pth('vgg16.npy', 'vgg16.pth')  
