@@ -7,13 +7,13 @@ from torch.utils.data import Dataset
 class H5Dataset(Dataset):
     def __init__(self, h5_path, transform=None):
         with h5py.File(h5_path, 'r') as f:
-            self.data = f['data'][:]  # [N, C, H, W]，原样保留！
+            self.data = f['data'][:]  # [N, C, H, W]
         self.transform = transform
-        print(f"Loaded data shape: {self.data.shape}")  # 确认是 (N, 2, 64, 64)
+        print(f"Loaded data shape: {self.data.shape}")  #  (N, 2, 64, 64)
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        img = torch.FloatTensor(self.data[idx])  # [C, H, W]，C=2 (例如vis/ir或oe/ue)
+        img = torch.FloatTensor(self.data[idx])  # [C, H, W]，C=2 
         return img
