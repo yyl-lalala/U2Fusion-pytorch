@@ -16,7 +16,10 @@ which is capable of solving different fusion problems, including multi-modal, mu
 Now, with the upadta to the code frameworl, I will provide the version migrated to PyTorch.
 The current repository supports quick testing with pretrained checkpoints.
 
-
+## Tips:<br>
+Large files should be downloaded separately, including the following files: <br>
+#### For training:<br>
+* [Training dataset ,checkpoints and vgg16.npy]( https://pan.baidu.com/s/1E7j4lHKRR4SwjcOyiUdUxQ?pwd=ra1k)<br>
 ---
 ## Visual Results
 
@@ -90,10 +93,7 @@ Diff-MEF/
 └── README.md
 ```
 ---
-## Tips:<br>
-Large files should be downloaded separately, including the following files: <br>
-#### For training:<br>
-* [Training dataset ,checkpoints and vgg16.npy]( https://pan.baidu.com/s/1E7j4lHKRR4SwjcOyiUdUxQ?pwd=ra1k)<br>
+
 
 ## Citation
 If you find this work useful for your research, please cite our paper:
