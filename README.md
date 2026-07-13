@@ -112,7 +112,7 @@ U2Fusion-PyTorch/
 ├── model.py
 ├── train.py
 ├── test.py                     
-├── color.py                     # Its functon has been achieved in test
+├── color.py                     # Its function has been achieved in test
 ├── requirements.txt
 └── README.md
 ```
