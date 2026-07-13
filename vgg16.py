@@ -65,4 +65,4 @@ class Vgg16(nn.Module):
         h12 = torch.relu(self.conv5_2(h11))
         h13 = torch.relu(self.conv5_3(h12))
 
-        return h2, h4, h7, h10, h13   # 5个中间层特征
+        return h2, h4, h7, h10, h13   
