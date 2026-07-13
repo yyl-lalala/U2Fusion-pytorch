@@ -78,9 +78,7 @@ More detailed package versions are listed in requirements.txt
 ```text
 U2Fusion-PyTorch/
 ├── checkpoints/
-│   ├── task1/                   # Multi-Modal
-│   ├── task2/                   # Multi-Exposure
-│   └── task3/                   # Multi-Focus
+│   └── task3/                   # Final Path
 ├── test_imgs/
 │   ├── vis-ir/
 │       ├── TNO/
